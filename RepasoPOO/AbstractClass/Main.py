@@ -13,3 +13,9 @@ if __name__ == "__main__":
     
     firulais = Perro("Firulais")
     print(firulais.make_sound())
+    
+    oscar.eat()
+    firulais.eat()
+    
+    oscar.sleep()
+    firulais.sleep()
