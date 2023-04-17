@@ -1,7 +1,7 @@
 import sys
 
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedLayout, QVBoxLayout, QHBoxLayout, QWidget
 
 # Una clase que define el diseño y comportamiento de una ventana (vista)
 class VentanaPrincipal(QMainWindow):
@@ -13,17 +13,17 @@ class VentanaPrincipal(QMainWindow):
         self.setWindowTitle("Aplicación en PyQt6")
         self.setFixedSize(QSize(400,200))
         #caja = QHBoxLayout()
-        caja = QVBoxLayout()
+        #caja = QVBoxLayout()
+        caja = QStackedLayout()
         
-        self.texto = QLabel("Texto de prueba")
-        self.entrada = QLineEdit("Ingresa tu nombre")
-        self.boton = QPushButton("Ingresar")
-        self.boton.clicked.connect(self.reaccionar)
+        ####boton = QPushButton("Presioname", lambda clicked: print("Acción con Lambda Expressions"))
+        boton1 = QPushButton("Boton1")
+        boton2 = QPushButton("Boton2")
+        #boton.clicked.connect(self.reaccionar)
         
         # Se agregan los componentes al layout definido
-        caja.addWidget(self.texto)
-        caja.addWidget(self.entrada)
-        caja.addWidget(self.boton)
+        caja.addWidget(boton1)
+        caja.addWidget(boton2)
         
         #asigna el layout a la ventana
         ventana = QWidget()
@@ -34,9 +34,8 @@ class VentanaPrincipal(QMainWindow):
         
     #Primera forma de manejar eventos
     def reaccionar(self):
-        self.texto.setText("Bienvenido/a " + self.entrada.text())
-        self.entrada.setText("")
-        self.boton.setText("Ingresado")
+        self.contador_clicks += 1
+        print(f"Botón Presionado!!!! Contador de Clicks en {self.contador_clicks} clicks")
         
 
 # Main
