@@ -19,11 +19,17 @@ class VentanaPrincipal(QMainWindow):
         ####boton = QPushButton("Presioname", lambda clicked: print("Acción con Lambda Expressions"))
         boton1 = QPushButton("Boton1")
         boton2 = QPushButton("Boton2")
+        boton3 = QPushButton("Boton3")
+        boton4 = QPushButton("Boton4")
         #boton.clicked.connect(self.reaccionar)
         
         # Se agregan los componentes al layout definido
-        caja.addWidget(boton1)
-        caja.addWidget(boton2)
+        caja.addWidget(boton1) # index 0
+        caja.addWidget(boton2) # index 1
+        caja.addWidget(boton3) # index 2
+        caja.addWidget(boton4) # index 3
+        
+        caja.setCurrentIndex(2)
         
         #asigna el layout a la ventana
         ventana = QWidget()
