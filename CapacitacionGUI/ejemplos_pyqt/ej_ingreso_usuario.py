@@ -1,7 +1,7 @@
 import sys
 
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QGridLayout, QPushButton, QStackedLayout, QVBoxLayout, QHBoxLayout, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QMessageBox, QGridLayout, QPushButton, QStackedLayout, QVBoxLayout, QHBoxLayout, QWidget
 
 # Una clase que define el diseño y comportamiento de una ventana (vista)
 class VentanaPrincipal(QMainWindow):
@@ -39,22 +39,23 @@ class VentanaPrincipal(QMainWindow):
         layout3 = QVBoxLayout(contenedor3)
         
         #layout1
-        texto_inicio = QLabel("Inicio de Sesión")
+        self.texto_inicio = QLabel("Inicio de Sesión")
         formulario_inicio = QGridLayout()
         inicio_usuario = QLabel("Usuario")
-        inicio_entrada_usuario = QLineEdit()
+        self.inicio_entrada_usuario = QLineEdit()
         inicio_psw = QLabel("Password")
-        inicio_entrada_psw = QLineEdit()
-        inicio_entrada_psw.setEchoMode(QLineEdit.EchoMode.Password)
+        self.inicio_entrada_psw = QLineEdit()
+        self.inicio_entrada_psw.setEchoMode(QLineEdit.EchoMode.Password)
         inicio_btn = QPushButton("Iniciar Sesión")
+        inicio_btn.clicked.connect(self.iniciar_sesion)
         
         formulario_inicio.addWidget(inicio_usuario, 0,0)
-        formulario_inicio.addWidget(inicio_entrada_usuario, 0,1)
+        formulario_inicio.addWidget(self.inicio_entrada_usuario, 0,1)
         formulario_inicio.addWidget(inicio_psw, 1,0)
-        formulario_inicio.addWidget(inicio_entrada_psw, 1,1)
+        formulario_inicio.addWidget(self.inicio_entrada_psw, 1,1)
         formulario_inicio.addWidget(inicio_btn, 2,1)
         
-        layout1.addWidget(texto_inicio)
+        layout1.addWidget(self.texto_inicio)
         layout1.addLayout(formulario_inicio)
         
         #layout2
@@ -126,6 +127,17 @@ class VentanaPrincipal(QMainWindow):
     #Primera forma de manejar eventos
     def reaccionar(self):
         pass
+    
+    def iniciar_sesion(self):
+        if self.inicio_entrada_usuario.text() == "" and self.inicio_entrada_psw.text() == "":
+            btn = QMessageBox.critical(
+                self,
+                "Error al iniciar Sesión",
+                "No hay valores en la entrada de datos",
+                buttons = QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Ignore,
+                defaultButton = QMessageBox.StandardButton.Ok
+            )
+        self.texto_inicio.setText("Inicio de Sesión * Obligatorio ingresar datos")
         
 
 # Main
