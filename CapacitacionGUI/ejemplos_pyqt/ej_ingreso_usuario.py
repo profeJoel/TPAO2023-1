@@ -3,6 +3,10 @@ import sys
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QMessageBox, QGridLayout, QPushButton, QStackedLayout, QVBoxLayout, QHBoxLayout, QWidget
 
+
+# Importar modelo
+from ej_modelo_usuario import Usuario
+
 # Una clase que define el diseño y comportamiento de una ventana (vista)
 class VentanaPrincipal(QMainWindow):
     def __init__(self):
@@ -62,23 +66,24 @@ class VentanaPrincipal(QMainWindow):
         texto_registrar = QLabel("Registrarse")
         formulario_registrar = QGridLayout()
         registrar_nombre = QLabel("Nombre")
-        registrar_entrada_nombre = QLineEdit()
+        self.registrar_entrada_nombre = QLineEdit()
         registrar_apellido = QLabel("Apellido")
-        registrar_entrada_apellido = QLineEdit()
+        self.registrar_entrada_apellido = QLineEdit()
         registrar_usuario = QLabel("Usuario")
-        registrar_entrada_usuario = QLineEdit()
+        self.registrar_entrada_usuario = QLineEdit()
         registrar_psw = QLabel("Password")
-        registrar_entrada_psw = QLineEdit()
+        self.registrar_entrada_psw = QLineEdit()
         registrar_btn = QPushButton("Iniciar Sesión")
+        registrar_btn.clicked.connect(self.registrar_modelo_usuario)
         
         formulario_registrar.addWidget(registrar_nombre, 0,0)
-        formulario_registrar.addWidget(registrar_entrada_nombre, 0,1)
+        formulario_registrar.addWidget(self.registrar_entrada_nombre, 0,1)
         formulario_registrar.addWidget(registrar_apellido, 0,2)
-        formulario_registrar.addWidget(registrar_entrada_apellido, 0,3)
+        formulario_registrar.addWidget(self.registrar_entrada_apellido, 0,3)
         formulario_registrar.addWidget(registrar_usuario, 1,0)
-        formulario_registrar.addWidget(registrar_entrada_usuario, 1,1)
+        formulario_registrar.addWidget(self.registrar_entrada_usuario, 1,1)
         formulario_registrar.addWidget(registrar_psw, 1,2)
-        formulario_registrar.addWidget(registrar_entrada_psw, 1,3)
+        formulario_registrar.addWidget(self.registrar_entrada_psw, 1,3)
         formulario_registrar.addWidget(registrar_btn, 2,3)
         
         layout2.addWidget(texto_registrar)
@@ -138,10 +143,27 @@ class VentanaPrincipal(QMainWindow):
                 defaultButton = QMessageBox.StandardButton.Ok
             )
         self.texto_inicio.setText("Inicio de Sesión * Obligatorio ingresar datos")
+    
+    def registrar_modelo_usuario(self):
+        global lista_usuario
+        nombre = self.registrar_entrada_nombre.text()
+        apellido = self.registrar_entrada_apellido.text()
+        nick = self.registrar_entrada_usuario.text()
+        psw = self.registrar_entrada_psw.text()
+        u = Usuario(nombre, apellido, nick, psw)
+        lista_usuario.append(u)
+        
+        #Verifiar la lista de usuario
+        print("Lista de Usuarios")
+        for usuario in lista_usuario:
+            print(usuario)
         
 
 # Main
 if __name__ == "__main__":
+    
+    lista_usuario = [] # list()
+    
     app = QApplication(sys.argv)
     ventana = VentanaPrincipal()
     ventana.show() # obligatorio (dentro del init o fuera)
