@@ -1,0 +1,8 @@
+Para efectos del ejemplo, se crea un nuevo texto
+Se lanza el programa
+Se agregan nuevas lineas
+Sin problemas de sobreescritura
+Se agregan nuevas lineas
+Sin problemas de sobreescritura
+Se agregan nuevas lineas
+Sin problemas de sobreescritura

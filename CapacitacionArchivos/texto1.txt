@@ -1,0 +1,2 @@
+Este es un ejemplo de cómo se trabaja con archivos
+Esta segunda línea.
